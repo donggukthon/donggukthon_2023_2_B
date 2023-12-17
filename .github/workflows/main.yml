@@ -63,7 +63,7 @@ jobs:
         
     - name: Docker image build and push
       run: |
-        docker build -t ${{secrets.DOCKERHUB_ID}}/show .
+        docker build -t ${{secrets.DOCKERHUB_ID}}/donggukthon .
         docker push ${{ secrets.DOCKERHUB_ID }}/donggukthon
 
     - name: Deploy to Instance
