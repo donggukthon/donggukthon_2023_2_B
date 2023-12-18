@@ -26,13 +26,16 @@ public class User extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
+    private UserRole userRole;
+
     @Builder
-    public User(Long userId, String nickname, String password, String profileImageUrl, String socialId, SocialType socialType){
+    public User(Long userId, String nickname, String password, String profileImageUrl, String socialId, SocialType socialType, UserRole userRole){
         this.userId = userId;
         this.nickname = nickname;
         this.password = password;
         this.profileImageUrl = profileImageUrl;
         this.socialId = socialId;
         this.socialType = socialType;
+        this.userRole = userRole;
     }
 }
