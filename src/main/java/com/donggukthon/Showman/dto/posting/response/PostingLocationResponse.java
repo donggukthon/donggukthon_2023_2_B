@@ -21,6 +21,7 @@ public class PostingLocationResponse {
                 .address(address)
                 .snowmanName(snowmanName)
                 .snowmanImageUrl(snowmanImageUrl)
+                .createdAt(createdAt)
                 .build();
     }
 }
