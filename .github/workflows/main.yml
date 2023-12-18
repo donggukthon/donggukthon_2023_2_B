@@ -32,6 +32,10 @@ jobs:
         touch ./src/main/resources/application-oauth.yml
         echo "${{ secrets.APPLICATION_OAUTH }}" > ./src/main/resources/application-oauth.yml
         cat ./src/main/resources/application-oauth.yml
+        
+        touch ./src/main/resources/optimum-lodge-404608-6839867a982a.json
+        echo "${{ secrets.GCS_BUCKET_JSON }}" > ./src/main/resources/optimum-lodge-404608-6839867a982a.json
+        cat ./src/main/resources/optimum-lodge-404608-6839867a982a.json
 
     - name: Cache Gradle packages
       uses: actions/cache@v2

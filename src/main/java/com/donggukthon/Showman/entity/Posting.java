@@ -45,4 +45,19 @@ public class Posting extends BaseEntity{
         this.snowmanIdCardImageUrl = snowmanIdCardImageUrl;
         this.user = user;
     }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public void updatePostingDescription(String snowmanName, String snowmanDescription){
+        this.snowmanName = snowmanName;
+        this.snowmanDescription = snowmanDescription;
+    }
+
+    public void updatePostingLocation(String latitude, String longitude, String address) {
+        this.latitude = Double.parseDouble(latitude);
+        this.longitude = Double.parseDouble(longitude);
+        this.address = address;
+    }
 }

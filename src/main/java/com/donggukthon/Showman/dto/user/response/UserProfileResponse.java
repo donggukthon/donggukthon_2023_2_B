@@ -1,4 +1,4 @@
-package com.donggukthon.Showman.dto;
+package com.donggukthon.Showman.dto.user.response;
 
 public record UserProfileResponse(
         Long id,
