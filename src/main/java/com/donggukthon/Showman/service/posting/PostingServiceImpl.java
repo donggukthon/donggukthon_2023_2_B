@@ -73,6 +73,7 @@ public class PostingServiceImpl implements PostingService{
     }
 
     @Override
+    @Transactional
     public PostingLocationResponse postingLocation(PostingLocationRequest postingLocationRequest) {
         Posting posting = postingRepository.findById(postingLocationRequest.getPostingId()).orElseThrow(() -> new CustomException(Result.NOT_FOUND_POSTING));
         posting.updatePostingLocation(postingLocationRequest.getLatitude(), postingLocationRequest.getLongitude(), postingLocationRequest.getAddress());
