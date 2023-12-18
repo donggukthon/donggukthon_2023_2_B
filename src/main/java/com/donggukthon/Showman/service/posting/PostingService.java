@@ -1,6 +1,5 @@
 package com.donggukthon.Showman.service.posting;
 
-import com.donggukthon.Showman.common.CommonResponse;
 import com.donggukthon.Showman.dto.posting.request.PostingDescriptionRequest;
 import com.donggukthon.Showman.dto.posting.request.PostingLocationRequest;
 import com.donggukthon.Showman.dto.posting.response.PostingDescriptionResponse;

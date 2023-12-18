@@ -9,7 +9,6 @@ import com.donggukthon.Showman.dto.posting.response.PostingLocationResponse;
 import com.donggukthon.Showman.service.posting.PostingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,5 +35,4 @@ public class PostingController {
     public CommonResponse<PostingLocationResponse> postingLocation(@RequestBody PostingLocationRequest postingLocationRequest){
         return CommonResponse.success(postingService.postingLocation(postingLocationRequest));
     }
-
 }
