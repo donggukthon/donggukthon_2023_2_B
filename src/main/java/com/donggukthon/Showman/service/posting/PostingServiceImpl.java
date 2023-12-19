@@ -11,10 +11,7 @@ import com.donggukthon.Showman.entity.Comment;
 import com.donggukthon.Showman.entity.Posting;
 import com.donggukthon.Showman.entity.Scrap;
 import com.donggukthon.Showman.entity.User;
-import com.donggukthon.Showman.repository.CommentRepository;
-import com.donggukthon.Showman.repository.HeartRepository;
-import com.donggukthon.Showman.repository.PostingRepository;
-import com.donggukthon.Showman.repository.UserRepository;
+import com.donggukthon.Showman.repository.*;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +37,7 @@ public class PostingServiceImpl implements PostingService{
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final HeartRepository heartRepository;
+    private final ScrapRepository scrapRepository;
 
     @Override
     @Transactional
@@ -123,7 +121,24 @@ public class PostingServiceImpl implements PostingService{
         Posting posting = postingRepository.findById(postingId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_POSTING));
 
         Scrap scrap = Scrap.builder().user(user).posting(posting).build();
+        scrapRepository.save(scrap);
 
         return PostingScrapResponse.of(scrap.getScrapId());
+    }
+
+    @Override
+    @Transactional
+    public void unscrapPosting(Long postingId) {
+        Long userId = null;
+        try {
+            userId = SecurityUtils.getCurrentUserId();
+        }catch (AuthenticationException e){
+            throw new RuntimeException(e);
+        }
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_USER));
+        Posting posting = postingRepository.findById(postingId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_POSTING));
+
+        scrapRepository.deleteByUserAndPosting(user, posting);
     }
 }
