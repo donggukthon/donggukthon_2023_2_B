@@ -46,7 +46,4 @@ public class PostingController {
         return CommonResponse.success(postingService.scrapPosting(postingId));
     }
 
-    // 눈사람 게시글 게시자의 다른 게시글 조회
-
-
 }

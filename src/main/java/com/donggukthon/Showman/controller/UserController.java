@@ -24,7 +24,7 @@ public class UserController {
 
     /* 닉네임 수정 */
     @PostMapping("/user")
-    public CommonResponse<ModifiedUserInfoResponse> modifyUserInfo(ModifiedUserInfoRequest modifiedUserInfoRequest) {
+    public CommonResponse<ModifiedUserInfoResponse> modifyUserInfo(@RequestBody ModifiedUserInfoRequest modifiedUserInfoRequest) {
         return CommonResponse.success(userService.modifyUserInfo(modifiedUserInfoRequest));
     }
 

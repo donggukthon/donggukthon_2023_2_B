@@ -25,10 +25,12 @@ public class MapServiceImpl implements MapService{
 
     private final PostingRepository postingRepository;
 
+
+    // 완전하게 포스팅 된 눈사람이 아닌 경우에는 조회에서 걸러야함 = 위도, 경도가 없는 포스팅은 조회에서 걸러야함
     @Override
     @Transactional(readOnly = true)
     public List<MapAllSnowmanResponse> getAllSnowman() {
-        List<Posting> allSnowman = postingRepository.findAll();
+        List<Posting> allSnowman = postingRepository.findByLatitudeIsNotNullAndLongitudeIsNotNull();
 
         ArrayList<MapAllSnowmanResponse> mapAllSnowmanResponses = new ArrayList<>();
 

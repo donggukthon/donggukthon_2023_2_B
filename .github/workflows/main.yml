@@ -2,7 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "feature/test-cicd"]
 
 permissions:
   contents: read
@@ -28,13 +28,13 @@ jobs:
         touch ./src/main/resources/application.yml
         echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
         cat ./src/main/resources/application.yml
-
+        
         touch ./src/main/resources/application-oauth.yml
         echo "${{ secrets.APPLICATION_OAUTH }}" > ./src/main/resources/application-oauth.yml
         cat ./src/main/resources/application-oauth.yml
         
         touch ./src/main/resources/optimum-lodge-404608-6839867a982a.json
-        echo "${{ secrets.GCS_BUCKET_JSON }}" > ./src/main/resources/optimum-lodge-404608-6839867a982a.json
+        echo "${{ secrets.GCS_BUCKET_JSON_BASE64 }}" | base64 -d > ./src/main/resources/optimum-lodge-404608-6839867a982a.json
         cat ./src/main/resources/optimum-lodge-404608-6839867a982a.json
 
     - name: Cache Gradle packages
