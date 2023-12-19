@@ -1,6 +1,7 @@
 package com.donggukthon.Showman.repository;
 
 import com.donggukthon.Showman.entity.Posting;
+import com.donggukthon.Showman.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -8,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PostingRepository extends JpaRepository<Posting, Long> {
+    Long countByUser(User user);
+    List<Posting> findByUser(User user);
 
     @Query(value = "select * from posting\n" +
             "where latitude between :startX and :endX and longitude between :startY and :endY ;",

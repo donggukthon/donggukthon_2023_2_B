@@ -4,10 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Result {
-
-
-
-    // Common
+// Common
     OK(200, "성공"),
     FAIL(400,"실패"),
 
@@ -24,7 +21,6 @@ public enum Result {
 
     // posting
     NOT_FOUND_POSTING(404, "존재하지 않는 게시글입니다."),
-
     ;
 
     private final String message;

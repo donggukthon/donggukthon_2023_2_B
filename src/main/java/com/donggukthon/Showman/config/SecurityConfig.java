@@ -50,7 +50,7 @@ public class SecurityConfig {
 
                 // 특정 URL에 대한 권한 설정
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/success/**", "/posting", "/**").permitAll()
+                        .requestMatchers("/success/**","/**").permitAll()
                         .anyRequest().authenticated()
                 )
 
