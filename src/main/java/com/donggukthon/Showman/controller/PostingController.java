@@ -46,4 +46,10 @@ public class PostingController {
         return CommonResponse.success(postingService.scrapPosting(postingId));
     }
 
+    // 눈사람 게시글 스크랩 취소
+    @DeleteMapping("/posting/{postingId}/scrap")
+    public CommonResponse unscrapPosting(@PathVariable Long postingId) {
+        return CommonResponse.success();
+    }
+
 }

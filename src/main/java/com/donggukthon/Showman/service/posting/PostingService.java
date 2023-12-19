@@ -18,4 +18,6 @@ public interface PostingService {
     PostingResponse getPosting(Long postingId);
 
     PostingScrapResponse scrapPosting(Long postingId);
+
+    void unscrapPosting(Long postingId);
 }
