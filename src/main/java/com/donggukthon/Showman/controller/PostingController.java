@@ -3,9 +3,7 @@ package com.donggukthon.Showman.controller;
 import com.donggukthon.Showman.common.CommonResponse;
 import com.donggukthon.Showman.dto.posting.request.PostingDescriptionRequest;
 import com.donggukthon.Showman.dto.posting.request.PostingLocationRequest;
-import com.donggukthon.Showman.dto.posting.response.PostingDescriptionResponse;
-import com.donggukthon.Showman.dto.posting.response.PostingImageResponse;
-import com.donggukthon.Showman.dto.posting.response.PostingLocationResponse;
+import com.donggukthon.Showman.dto.posting.response.*;
 import com.donggukthon.Showman.service.posting.PostingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,4 +33,20 @@ public class PostingController {
     public CommonResponse<PostingLocationResponse> postingLocation(@RequestBody PostingLocationRequest postingLocationRequest){
         return CommonResponse.success(postingService.postingLocation(postingLocationRequest));
     }
+
+    // 눈사람 게시글 단건 조회
+    @GetMapping("/posting/{postingId}")
+    public CommonResponse<PostingResponse> getPosting(@PathVariable Long postingId) {
+        return CommonResponse.success(postingService.getPosting(postingId));
+    }
+
+    // 눈사람 게시글 스크랩
+    @PostMapping("/posting/{postingId}/scrap")
+    public CommonResponse<PostingScrapResponse> scrapPosting(@PathVariable Long postingId) {
+        return CommonResponse.success(postingService.scrapPosting(postingId));
+    }
+
+    // 눈사람 게시글 게시자의 다른 게시글 조회
+
+
 }
