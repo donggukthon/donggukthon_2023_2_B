@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HeartRepository extends JpaRepository<Heart, Long> {
-    Long countByHeart(Posting posting);
+    Long countByPosting(Posting posting);
     List<Heart> findByUser(User user);
     Integer countByPostingPostingId(Long postingId);
 

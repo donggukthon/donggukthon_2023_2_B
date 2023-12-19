@@ -12,6 +12,9 @@ public interface PostingRepository extends JpaRepository<Posting, Long> {
     Long countByUser(User user);
     List<Posting> findByUser(User user);
 
+    List<Posting> findByLatitudeIsNotNullAndLongitudeIsNotNull();
+
+
     @Query(value = "select * from posting\n" +
             "where latitude between :startX and :endX and longitude between :startY and :endY ;",
             nativeQuery = true)
