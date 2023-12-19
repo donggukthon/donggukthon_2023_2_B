@@ -3,6 +3,7 @@ package com.donggukthon.Showman.controller;
 import com.donggukthon.Showman.common.CommonResponse;
 import com.donggukthon.Showman.dto.posting.request.PostingDescriptionRequest;
 import com.donggukthon.Showman.dto.posting.request.PostingLocationRequest;
+import com.donggukthon.Showman.dto.posting.request.PostingUnscrap;
 import com.donggukthon.Showman.dto.posting.response.*;
 import com.donggukthon.Showman.service.posting.PostingService;
 import lombok.RequiredArgsConstructor;
@@ -47,9 +48,9 @@ public class PostingController {
     }
 
     // 눈사람 게시글 스크랩 취소
-    @DeleteMapping("/posting/{postingId}/scrap")
-    public CommonResponse unscrapPosting(@PathVariable Long postingId) {
-        return CommonResponse.success();
+    @DeleteMapping("/posting/unscrap")
+    public CommonResponse unscrapPosting(@RequestBody PostingUnscrap postingUnscrap) {
+        return CommonResponse.success(postingService.unscrapPosting(postingUnscrap));
     }
 
 }

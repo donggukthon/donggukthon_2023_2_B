@@ -6,6 +6,7 @@ import com.donggukthon.Showman.config.SecurityUtils;
 import com.donggukthon.Showman.dto.comment.response.CommentResponse;
 import com.donggukthon.Showman.dto.posting.request.PostingDescriptionRequest;
 import com.donggukthon.Showman.dto.posting.request.PostingLocationRequest;
+import com.donggukthon.Showman.dto.posting.request.PostingUnscrap;
 import com.donggukthon.Showman.dto.posting.response.*;
 import com.donggukthon.Showman.entity.Comment;
 import com.donggukthon.Showman.entity.Posting;
@@ -128,17 +129,10 @@ public class PostingServiceImpl implements PostingService{
 
     @Override
     @Transactional
-    public void unscrapPosting(Long postingId) {
-        Long userId = null;
-        try {
-            userId = SecurityUtils.getCurrentUserId();
-        }catch (AuthenticationException e){
-            throw new RuntimeException(e);
-        }
+    public PostingScrapResponse unscrapPosting(PostingUnscrap postingUnscrap) {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_USER));
-        Posting posting = postingRepository.findById(postingId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_POSTING));
+        scrapRepository.deleteById(postingUnscrap.getScrapId());
 
-        scrapRepository.deleteByUserAndPosting(user, posting);
+        return PostingScrapResponse.of(postingUnscrap.getScrapId());
     }
 }

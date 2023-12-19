@@ -2,6 +2,7 @@ package com.donggukthon.Showman.service.posting;
 
 import com.donggukthon.Showman.dto.posting.request.PostingDescriptionRequest;
 import com.donggukthon.Showman.dto.posting.request.PostingLocationRequest;
+import com.donggukthon.Showman.dto.posting.request.PostingUnscrap;
 import com.donggukthon.Showman.dto.posting.response.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,5 +20,5 @@ public interface PostingService {
 
     PostingScrapResponse scrapPosting(Long postingId);
 
-    void unscrapPosting(Long postingId);
+    PostingScrapResponse unscrapPosting(PostingUnscrap postingUnscrap);
 }
