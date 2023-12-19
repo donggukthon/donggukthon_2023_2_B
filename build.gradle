@@ -48,6 +48,10 @@ dependencies {
 	// gcs
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.5.RELEASE'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-storage', version: '1.2.5.RELEASE'
+
+	// spatial
+	implementation group: 'org.hibernate', name: 'hibernate-spatial', version: '5.6.9.Final'
+
 }
 
 tasks.named('bootBuildImage') {
