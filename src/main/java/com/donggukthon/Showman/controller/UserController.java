@@ -2,10 +2,7 @@ package com.donggukthon.Showman.controller;
 
 import com.donggukthon.Showman.common.CommonResponse;
 import com.donggukthon.Showman.dto.user.request.ModifiedUserInfoRequest;
-import com.donggukthon.Showman.dto.user.response.CommentInfoResponse;
-import com.donggukthon.Showman.dto.user.response.ModifiedUserInfoResponse;
-import com.donggukthon.Showman.dto.user.response.PostInfoResponse;
-import com.donggukthon.Showman.dto.user.response.UserInfoResponse;
+import com.donggukthon.Showman.dto.user.response.*;
 import org.springframework.web.bind.annotation.*;
 import com.donggukthon.Showman.service.user.UserService;
 
@@ -53,6 +50,12 @@ public class UserController {
     @GetMapping("/user/scrap")
     public CommonResponse<List<PostInfoResponse>> getScrapInfo(){
         return CommonResponse.success(userService.getScrapInfo());
+    }
+
+    /* 특정 사용자의 작성 게시글 보기 */
+    @GetMapping("/user/snowman{userId}")
+    public CommonResponse<List<UserPostInfoResponse>> getUserPostInfo(@PathVariable Long userId){
+        return CommonResponse.success(userService.getUserPostInfo(userId));
     }
 }
 
