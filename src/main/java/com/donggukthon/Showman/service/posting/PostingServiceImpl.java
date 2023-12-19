@@ -35,7 +35,7 @@ public class PostingServiceImpl implements PostingService{
     @Value("${spring.cloud.bucket}")
     private String bucketName;
 
-//    private final Storage storage;
+    private final Storage storage;
     private final PostingRepository postingRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
@@ -58,7 +58,7 @@ public class PostingServiceImpl implements PostingService{
         String ext = multipartFile.getContentType(); // 파일의 형식 ex) JPG
 
         // 이미지 업로드
-//        BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(bucketName, uuid).setContentType(ext).build(),multipartFile.getInputStream());
+        BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(bucketName, uuid).setContentType(ext).build(),multipartFile.getInputStream());
 
         Posting posting = Posting.builder().snowmanImageUrl("https://storage.googleapis.com/"+bucketName+"/"+uuid).build();
         postingRepository.save(posting);
