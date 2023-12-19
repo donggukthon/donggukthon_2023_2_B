@@ -86,8 +86,8 @@ public class UserServiceImpl implements UserService {
         ArrayList<PostInfoResponse> postInfoResponses = new ArrayList<>();
 
         for (Posting posting : postings) {
-            Long heartCnt = heartRepository.countByHeart(posting);
-            Long commentCnt = commentRepository.countByComment(posting);
+            Long heartCnt = heartRepository.countByPosting(posting);
+            Long commentCnt = commentRepository.countByPosting(posting);
 
             PostInfoResponse postInfoResponse = PostInfoResponse.of(
                     posting.getPostingId(),
@@ -148,8 +148,8 @@ public class UserServiceImpl implements UserService {
             // 현재 유저의 좋아요(heart)에 연관된 Posting 객체 가져오기
             Posting posting = heart.getPosting();
 
-            Long heartCnt = heartRepository.countByHeart(posting);
-            Long commentCnt = commentRepository.countByComment(posting);
+            Long heartCnt = heartRepository.countByPosting(posting);
+            Long commentCnt = commentRepository.countByPosting(posting);
 
             PostInfoResponse postInfoResponse = PostInfoResponse.of(
                     posting.getPostingId(),
@@ -181,8 +181,8 @@ public class UserServiceImpl implements UserService {
             // 현재 유저의 저장(scrap)에 연관된 Posting 객체를 가져오기
             Posting posting = scrap.getPosting();
 
-            Long heartCnt = heartRepository.countByHeart(posting);
-            Long commentCnt = commentRepository.countByComment(posting);
+            Long heartCnt = heartRepository.countByPosting(posting);
+            Long commentCnt = commentRepository.countByPosting(posting);
 
             PostInfoResponse postInfoResponse = PostInfoResponse.of(
                     posting.getPostingId(),
