@@ -53,7 +53,7 @@ public class UserController {
     }
 
     /* 특정 사용자의 작성 게시글 보기 */
-    @GetMapping("/user/snowman{userId}")
+    @GetMapping("/user/snowman/{userId}")
     public CommonResponse<List<UserPostInfoResponse>> getUserPostInfo(@PathVariable Long userId){
         return CommonResponse.success(userService.getUserPostInfo(userId));
     }
