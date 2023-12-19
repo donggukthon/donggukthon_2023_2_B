@@ -14,13 +14,17 @@ public class MapSnowmanResponse {
     private Double longitude;
     private String snowmanName;
     private String snowmanImageUrl;
+    private String address;
 
-    public MapSnowmanResponse(Long postingId, LocalDateTime createdAt, Double latitude, Double longitude, String snowmanName, String snowmanImageUrl) {
-        this.postingId = postingId;
-        this.createdAt = createdAt;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.snowmanName = snowmanName;
-        this.snowmanImageUrl = snowmanImageUrl;
+    public static MapSnowmanResponse of(Long postingId, LocalDateTime createdAt, Double latitude, Double longitude, String snowmanName, String snowmanImageUrl, String address) {
+        return MapSnowmanResponse.builder()
+                .postingId(postingId)
+                .createdAt(createdAt)
+                .latitude(latitude)
+                .longitude(longitude)
+                .snowmanName(snowmanName)
+                .snowmanImageUrl(snowmanImageUrl)
+                .address(address)
+                .build();
     }
 }

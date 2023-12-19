@@ -10,10 +10,12 @@ public class MapAllSnowmanResponse {
     private Double latitude;
     private Double longitude;
 
-    public MapAllSnowmanResponse(Long postingId, Double latitude, Double longitude) {
-        this.postingId = postingId;
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public static MapAllSnowmanResponse of(Long postingId, Double latitude, Double longitude) {
+        return MapAllSnowmanResponse.builder()
+                .postingId(postingId)
+                .latitude(latitude)
+                .longitude(longitude)
+                .build();
     }
 
 }
