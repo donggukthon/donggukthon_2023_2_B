@@ -30,8 +30,6 @@ public class Posting extends BaseEntity{
 
     private String snowmanIdCardImageUrl;
 
-    private Point point;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
