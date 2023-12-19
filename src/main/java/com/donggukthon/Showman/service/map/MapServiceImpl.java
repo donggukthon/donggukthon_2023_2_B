@@ -63,12 +63,15 @@ public class MapServiceImpl implements MapService{
         log.info("start");
 
         List<Posting> postings = postingRepository.findWithinRadius(x, y, southWest.getLatitude(), northEast.getLatitude(), southWest.getLongitude(), northEast.getLongitude());
-
         ArrayList<MapAroundSnowmanResponse> mapAroundSnowmanResponses = new ArrayList<>();
 
         for (Posting post : postings) {
-            MapAroundSnowmanResponse mapAroundSnowmanResponse = MapAroundSnowmanResponse.of(post.getPostingId(), post.getSnowmanName(), post.getSnowmanImageUrl(), post.getCreatedAt(), post.getAddress(), post.getLatitude(), post.getLongitude());
-            mapAroundSnowmanResponses.add(mapAroundSnowmanResponse);
+            if (post.getPostingId()==postingId) {
+                continue;
+            }else {
+                MapAroundSnowmanResponse mapAroundSnowmanResponse = MapAroundSnowmanResponse.of(post.getPostingId(), post.getSnowmanName(), post.getSnowmanImageUrl(), post.getCreatedAt(), post.getAddress(), post.getLatitude(), post.getLongitude());
+                mapAroundSnowmanResponses.add(mapAroundSnowmanResponse);
+            }
         }
 
         return mapAroundSnowmanResponses;

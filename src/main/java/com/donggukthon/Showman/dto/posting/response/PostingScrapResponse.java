@@ -7,11 +7,11 @@ import lombok.Getter;
 @Builder
 public class PostingScrapResponse {
 
-    private Long postingId;
+    private Long scrapId;
 
-    public static PostingScrapResponse of(Long postingId) {
+    public static PostingScrapResponse of(Long scrapId) {
         return PostingScrapResponse.builder()
-                .postingId(postingId)
+                .scrapId(scrapId)
                 .build();
     }
 }
