@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 @Entity
 @Getter
@@ -44,5 +45,20 @@ public class Posting extends BaseEntity{
         this.address = address;
         this.snowmanIdCardImageUrl = snowmanIdCardImageUrl;
         this.user = user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public void updatePostingDescription(String snowmanName, String snowmanDescription){
+        this.snowmanName = snowmanName;
+        this.snowmanDescription = snowmanDescription;
+    }
+
+    public void updatePostingLocation(String latitude, String longitude, String address) {
+        this.latitude = Double.parseDouble(latitude);
+        this.longitude = Double.parseDouble(longitude);
+        this.address = address;
     }
 }

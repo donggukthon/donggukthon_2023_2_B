@@ -10,4 +10,6 @@ import java.util.List;
 public interface HeartRepository extends JpaRepository<Heart, Long> {
     Long countByHeart(Posting posting);
     List<Heart> findByUser(User user);
+    Integer countByPostingPostingId(Long postingId);
+
 }
