@@ -20,11 +20,13 @@ public class MapController {
 
     private final MapService mapService;
 
+    // 지도 조회(모든 눈사람 핀 조회)
     @GetMapping("/map")
     public CommonResponse<List<MapAllSnowmanResponse>> getAllSnowman() {
         return CommonResponse.success(mapService.getAllSnowman());
     }
 
+    // 특정 눈사람 핀 선택시 바텀시트 조회
     @GetMapping("/map/{postingId}")
     public CommonResponse<MapSnowmanResponse> getSnowman(@PathVariable Long postingId) {
         return CommonResponse.success(mapService.getSnowman(postingId));
