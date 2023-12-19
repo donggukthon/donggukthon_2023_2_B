@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService {
         ArrayList<PostInfoResponse> ScrapInfo = new ArrayList<>();
 
         for (Scrap scrap : scraps) {
-            // 현재 유저의 저장(scrap)에 연관된 Posting 객체 가져오기
+            // 현재 유저의 저장(scrap)에 연관된 Posting 객체를 가져오기
             Posting posting = scrap.getPosting();
 
             Long heartCnt = heartRepository.countByHeart(posting);
