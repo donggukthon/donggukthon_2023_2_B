@@ -131,7 +131,8 @@ public class PostingServiceImpl implements PostingService{
     @Transactional
     public PostingScrapResponse unscrapPosting(PostingUnscrap postingUnscrap) {
 
-        scrapRepository.deleteById(postingUnscrap.getScrapId());
+        Scrap scrap = scrapRepository.findById(postingUnscrap.getScrapId()).orElseThrow(() -> new CustomException(Result.NOT_FOUND_SCRAP));
+        scrapRepository.delete(scrap);
 
         return PostingScrapResponse.of(postingUnscrap.getScrapId());
     }
