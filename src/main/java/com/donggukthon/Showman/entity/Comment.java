@@ -15,6 +15,8 @@ public class Comment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
+    private String content;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -24,8 +26,9 @@ public class Comment extends BaseEntity{
     private Posting posting;
 
     @Builder
-    public Comment(Long commentId, User user, Posting posting){
+    public Comment(Long commentId, String content, User user, Posting posting){
         this.commentId = commentId;
+        this.content = content;
         this.user = user;
         this.posting = posting;
     }
