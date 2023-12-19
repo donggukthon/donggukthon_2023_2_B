@@ -30,14 +30,13 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
             log.info("Principal에서 꺼낸 OAuth2User = {}", oAuth2User);
 
-            /*
-            각 역할별로(추가 회원가입(GUEST), 관심사 설정(INTEREST), 크리에이터 팔로우(FOLLOW), 로그인 성공(USER, CREATOR) ) 다른 페이지로 리다이렉트 해줘야한다.
-             */
             String targetUrl;
 
             // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
             if(oAuth2User.getUserRole() == UserRole.USER) {
-                targetUrl = "http://34.22.106.126:8080/success"; //프론트에 맞게 변경
+                targetUrl = "http://218.52.120.43:3000/main"; //프론트에 맞게 변경
+//                targetUrl = "http://localhost:8080/success"; //프론트에 맞게 변경
+
                 String redirectUrl = createToken(response, oAuth2User, targetUrl);
 
                 // 로그인 확인 페이지로 리다이렉트 시킨다.
