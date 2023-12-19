@@ -21,6 +21,12 @@ public enum Result {
 
     // posting
     NOT_FOUND_POSTING(404, "존재하지 않는 게시글입니다."),
+    NOT_FOUND_COMMENT(404, "존재하지 않는 댓글입니다."),
+
+
+    NOT_FOUND_HEART(404, "존재하지 않는 좋아요입니다."),
+
+
     ;
 
     private final String message;
