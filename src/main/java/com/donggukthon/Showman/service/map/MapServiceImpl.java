@@ -11,6 +11,7 @@ import com.donggukthon.Showman.entity.Posting;
 import com.donggukthon.Showman.repository.PostingRepository;
 import com.donggukthon.Showman.util.GeometryUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +20,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MapServiceImpl implements MapService{
 
     private final PostingRepository postingRepository;
+
     @Override
     @Transactional(readOnly = true)
     public List<MapAllSnowmanResponse> getAllSnowman() {
@@ -30,11 +33,7 @@ public class MapServiceImpl implements MapService{
         ArrayList<MapAllSnowmanResponse> mapAllSnowmanResponses = new ArrayList<>();
 
         for (Posting posting : allSnowman) {
-            MapAllSnowmanResponse mapAllSnowmanResponse = MapAllSnowmanResponse.builder()
-                    .postingId(allSnowman.get(0).getPostingId())
-                    .latitude(allSnowman.get(0).getLatitude())
-                    .longitude(allSnowman.get(0).getLongitude())
-                    .build();
+            MapAllSnowmanResponse mapAllSnowmanResponse = MapAllSnowmanResponse.of(posting.getPostingId(), posting.getLatitude(), posting.getLongitude());
             mapAllSnowmanResponses.add(mapAllSnowmanResponse);
         }
 
@@ -45,14 +44,7 @@ public class MapServiceImpl implements MapService{
     @Transactional(readOnly = true)
     public MapSnowmanResponse getSnowman(Long postingId) {
         Posting posting = postingRepository.findById(postingId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_POSTING));
-        return MapSnowmanResponse.builder()
-                .postingId(posting.getPostingId())
-                .longitude(posting.getLongitude())
-                .latitude(posting.getLatitude())
-                .snowmanName(posting.getSnowmanName())
-                .snowmanImageUrl(posting.getSnowmanImageUrl())
-                .createdAt(posting.getCreatedAt())
-                .build();
+        return MapSnowmanResponse.of(posting.getPostingId(), posting.getCreatedAt(), posting.getLatitude(), posting.getLongitude(), posting.getSnowmanName(), posting.getSnowmanImageUrl(), posting.getAddress());
     }
 
     @Override
@@ -66,24 +58,14 @@ public class MapServiceImpl implements MapService{
         // 현재 핀 기준으로 북동쪽과 남서쪽의 위치를 계산
         Location northEast = GeometryUtil.calculate(x, y, 10.0, Direction.NORTHEAST.getBearing());
         Location southWest = GeometryUtil.calculate(x, y, 10.0, Direction.SOUTHWEST.getBearing());
+        log.info("start");
 
-        List<Posting> postings = postingRepository.findInBoundingBoxOrderedByDistance(
-                southWest.getLatitude(), northEast.getLatitude(),
-                southWest.getLongitude(), northEast.getLongitude(),
-                x, y);
+        List<Posting> postings = postingRepository.findWithinRadius(x, y, southWest.getLatitude(), northEast.getLatitude(), southWest.getLongitude(), northEast.getLongitude());
 
         ArrayList<MapAroundSnowmanResponse> mapAroundSnowmanResponses = new ArrayList<>();
 
-        for (Posting aroundPosting : postings) {
-            MapAroundSnowmanResponse mapAroundSnowmanResponse = MapAroundSnowmanResponse.builder()
-                    .postingId(aroundPosting.getPostingId())
-                    .snowmanName(aroundPosting.getSnowmanName())
-                    .snowmanImageUrl(aroundPosting.getSnowmanImageUrl())
-                    .createdAt(aroundPosting.getCreatedAt())
-                    .address(aroundPosting.getAddress())
-                    .latitude(aroundPosting.getLatitude())
-                    .longitude(aroundPosting.getLongitude())
-                    .build();
+        for (Posting post : postings) {
+            MapAroundSnowmanResponse mapAroundSnowmanResponse = MapAroundSnowmanResponse.of(post.getPostingId(), post.getSnowmanName(), post.getSnowmanImageUrl(), post.getCreatedAt(), post.getAddress(), post.getLatitude(), post.getLongitude());
             mapAroundSnowmanResponses.add(mapAroundSnowmanResponse);
         }
 
