@@ -38,4 +38,8 @@ public class User extends BaseEntity{
         this.socialType = socialType;
         this.userRole = userRole;
     }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

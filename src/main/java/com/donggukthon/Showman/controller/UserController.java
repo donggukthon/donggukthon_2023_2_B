@@ -1,59 +1,60 @@
 package com.donggukthon.Showman.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
-import com.donggukthon.Showman.service.UserService;
-import com.donggukthon.Showman.dto.UserProfileResponse;
-import com.donggukthon.Showman.dto.UpdateUserRequest;
-import com.donggukthon.Showman.global.auth.token.jwt.JwtAuthenticationRecord;
-import com.donggukthon.Showman.global.base.ApiResponse;
-
-import jakarta.validation.Valid;
+import com.donggukthon.Showman.common.CommonResponse;
+import com.donggukthon.Showman.dto.user.request.ModifiedUserInfoRequest;
+import com.donggukthon.Showman.dto.user.response.CommentInfoResponse;
+import com.donggukthon.Showman.dto.user.response.ModifiedUserInfoResponse;
+import com.donggukthon.Showman.dto.user.response.PostInfoResponse;
+import com.donggukthon.Showman.dto.user.response.UserInfoResponse;
+import org.springframework.web.bind.annotation.*;
+import com.donggukthon.Showman.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/mypage")
 @RequiredArgsConstructor
 
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(value = "/me", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<UserProfileResponse>> getMyProfile(
-            @AuthenticationPrincipal JwtAuthenticationRecord user
-    ) {
-        UserProfileResponse response = userService.getUserProfile(user.id());
-
-        return ResponseEntity.ok().body(new ApiResponse<>(response));
+    /* 유저 정보 조회 */
+    @GetMapping("/user")
+    public CommonResponse<UserInfoResponse> getUserInfo() {
+        return CommonResponse.success(userService.getUserInfo());
     }
 
-    @PutMapping(value = "/me", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<UserProfileResponse>> updateMyProfile(
-            @RequestBody @Valid UpdateUserRequest updateUserRequest,
-            @AuthenticationPrincipal JwtAuthenticationRecord user
-    ) {
-        UserProfileResponse response = userService.updateUserProfile(updateUserRequest, user.id());
-
-        return ResponseEntity.ok().body(new ApiResponse<>(response));
+    /* 닉네임 수정 */
+    @PostMapping("/user")
+    public CommonResponse<ModifiedUserInfoResponse> modifyUserInfo(ModifiedUserInfoRequest modifiedUserInfoRequest) {
+        return CommonResponse.success(userService.modifyUserInfo(modifiedUserInfoRequest));
     }
 
-    @GetMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<UserProfileResponse>> getUserProfile(
-            @PathVariable Long userId
-    ) {
-        UserProfileResponse response = userService.getUserProfile(userId);
+    /* 내 눈사람 보기 */
+    @GetMapping("/user/snowman")
+    public CommonResponse<List<PostInfoResponse>> getPostInfo() {
+        return CommonResponse.success(userService.getPostInfo());}
 
-        return ResponseEntity.ok().body(new ApiResponse<>(response));
+    /* 내 댓글 보기 */
+    @GetMapping("/user/comment")
+    public CommonResponse<List<CommentInfoResponse>> getCommentInfo(){
+        return CommonResponse.success(userService.getCommentInfo());
+    }
+
+
+    /* 좋아요한 게시물 보기 */
+    @GetMapping("/user/heart")
+    public CommonResponse<List<PostInfoResponse>> getHeartInfo(){
+        return CommonResponse.success(userService.getHeartInfo());
+    }
+
+    /* 저장한 게시글 보기 */
+    @GetMapping("/user/scrap")
+    public CommonResponse<List<PostInfoResponse>> getScrapInfo(){
+        return CommonResponse.success(userService.getScrapInfo());
     }
 }
+
+
 
