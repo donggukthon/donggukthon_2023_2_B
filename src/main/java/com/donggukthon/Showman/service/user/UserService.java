@@ -1,10 +1,7 @@
 package com.donggukthon.Showman.service.user;
 
 import com.donggukthon.Showman.dto.user.request.ModifiedUserInfoRequest;
-import com.donggukthon.Showman.dto.user.response.CommentInfoResponse;
-import com.donggukthon.Showman.dto.user.response.ModifiedUserInfoResponse;
-import com.donggukthon.Showman.dto.user.response.PostInfoResponse;
-import com.donggukthon.Showman.dto.user.response.UserInfoResponse;
+import com.donggukthon.Showman.dto.user.response.*;
 import com.donggukthon.Showman.entity.User;
 
 
@@ -35,4 +32,7 @@ public interface UserService {
 
     // 저장한 게시글 조회
     List<PostInfoResponse> getScrapInfo();
+
+    // 특정 사용자의 작성 게시글 조회
+    List<UserPostInfoResponse> getUserPostInfo(Long userId);
 }

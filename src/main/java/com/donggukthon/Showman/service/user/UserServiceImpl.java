@@ -4,10 +4,7 @@ import com.donggukthon.Showman.common.CustomException;
 import com.donggukthon.Showman.common.Result;
 import com.donggukthon.Showman.config.SecurityUtils;
 import com.donggukthon.Showman.dto.user.request.ModifiedUserInfoRequest;
-import com.donggukthon.Showman.dto.user.response.CommentInfoResponse;
-import com.donggukthon.Showman.dto.user.response.ModifiedUserInfoResponse;
-import com.donggukthon.Showman.dto.user.response.PostInfoResponse;
-import com.donggukthon.Showman.dto.user.response.UserInfoResponse;
+import com.donggukthon.Showman.dto.user.response.*;
 import com.donggukthon.Showman.entity.*;
 import com.donggukthon.Showman.repository.*;
 import org.springframework.stereotype.Service;
@@ -199,6 +196,37 @@ public class UserServiceImpl implements UserService {
 
         return ScrapInfo;
 
+    }
+
+    // 특정 사용자의 작성 게시글 조회
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserPostInfoResponse> getUserPostInfo(Long userId) {
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(Result.NOT_FOUND_USER));
+
+        List<Posting> postings = postingRepository.findByUser(user);
+
+        ArrayList<UserPostInfoResponse> userPostInfo = new ArrayList<>();
+
+        for (Posting posting : postings) {
+            Long heartCnt = heartRepository.countByPosting(posting);
+            Long commentCnt = commentRepository.countByPosting(posting);
+
+            UserPostInfoResponse userPostInfoResponse = UserPostInfoResponse.of(
+                    posting.getPostingId(),
+                    posting.getSnowmanName(),
+                    posting.getSnowmanImageUrl(),
+                    posting.getCreatedAt(),
+                    posting.getAddress(),
+                    heartCnt,
+                    commentCnt,
+                    user.getUserId(),
+                    user.getNickname());
+
+            userPostInfo.add(userPostInfoResponse);
+        }
+        return userPostInfo;
     }
 
 }
