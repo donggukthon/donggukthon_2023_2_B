@@ -33,10 +33,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
     // 토큰 검사 생략
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return request.getRequestURI().contains("/success");
-    }
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+//        return request.getRequestURI().contains("/swagger-ui/**"); //request.getRequestURI().contains("/success") ||
+//    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -46,7 +46,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String bearerToken = request.getHeader("Authorization");
         log.info("bearerToken = "+ bearerToken);
-        String accessToken = jwtService.extractToken(bearerToken);
+
+        String accessToken = null;
+        if (!(bearerToken == null)) {
+            accessToken = jwtService.extractToken(bearerToken);
+        }
 
         // 토큰 검사 생략(모두 허용 URL의 경우 토큰 검사 통과)
         if (!StringUtils.hasText(accessToken)) {
