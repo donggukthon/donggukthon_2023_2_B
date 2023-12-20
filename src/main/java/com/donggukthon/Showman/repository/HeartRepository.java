@@ -12,4 +12,7 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
     List<Heart> findByUser(User user);
     Integer countByPostingPostingId(Long postingId);
 
+    long count();
+
+
 }

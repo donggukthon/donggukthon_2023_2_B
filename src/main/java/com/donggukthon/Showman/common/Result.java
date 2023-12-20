@@ -27,7 +27,7 @@ public enum Result {
     NOT_FOUND_HEART(404, "존재하지 않는 좋아요입니다."),
 
 
-    NOT_FOUND_SCRAP(404, "존재하지 않는 스크랩입니다."),   ;
+    NOT_FOUND_SCRAP(404, "존재하지 않는 스크랩입니다."), UPLOAD_FAIL(400, "업로드 실패");
 
     private final String message;
     private final int status;
