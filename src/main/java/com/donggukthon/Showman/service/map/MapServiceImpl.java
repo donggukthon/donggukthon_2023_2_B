@@ -73,6 +73,7 @@ public class MapServiceImpl implements MapService{
                 mapAroundSnowmanResponses.add(mapAroundSnowmanResponse);
             }
         }
+        mapAroundSnowmanResponses.add(0, MapAroundSnowmanResponse.of(posting.getPostingId(), posting.getSnowmanName(), posting.getSnowmanImageUrl(), posting.getCreatedAt(), posting.getAddress(), posting.getLatitude(), posting.getLongitude()));
 
         return mapAroundSnowmanResponses;
     }
