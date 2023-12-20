@@ -56,13 +56,17 @@ public class PostingServiceImpl implements PostingService{
         String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
         String ext = multipartFile.getContentType(); // 파일의 형식 ex) JPG
 
-        // 이미지 업로드
-        BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(bucketName, uuid).setContentType(ext).build(),multipartFile.getInputStream());
-
+        try {
+            // 이미지 업로드
+            BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(bucketName, uuid).setContentType(ext).build(), multipartFile.getInputStream());
+        }catch (Exception e){
+            throw new CustomException(Result.UPLOAD_FAIL);
+        }
         Posting posting = Posting.builder().snowmanImageUrl("https://storage.googleapis.com/"+bucketName+"/"+uuid).build();
         postingRepository.save(posting);
 
         posting.setUser(user);
+
 
         return PostingImageResponse.of(posting.getPostingId());
     }
